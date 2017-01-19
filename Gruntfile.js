@@ -1,5 +1,30 @@
 module.exports = function(grunt) {
+  
+   grunt.registerTask('fun', 'This task is for fun only', function() {
+        grunt.log.writeln('This the *fun* Grunt task');
+    });
 
+    grunt.registerTask('serious', 'This task is for serious stuff only', function() {
+        grunt.log.writeln('Wipe that smirk off your face, this is serious.');
+    });
+ 
+    grunt.initConfig({
+        watch: {
+            files: ['Gruntfile.js']
+        },
+      copy:{
+            main:{
+            files: {
+              './dest/':['assets/js/*.js']
+            }
+          }
+        
+        }
+
+    });
+
+    grunt.loadNpmTasks('g runt-contrib-watch');
+  
     grunt.registerTask( 'default', [ 'clean', 'copy', 'hapi', 'watch'] );
 
     grunt.registerTask( 'build', [ 'clean', 'copy' ] );
