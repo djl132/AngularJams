@@ -22,16 +22,12 @@
       .state('album', {
           url:'/album', //what does this lien do?
           templateUrl: '/templates/album.html'
-    }
-             
-      .state('collection', 
-            url:)
-    
     })
-    
-    
-    
-    
+             
+      .state('collection', {
+            url:'/', ///waht exaclty is this?
+            templateUrl: '/templates/collection.html'
+    }); 
   }
   
   angular
