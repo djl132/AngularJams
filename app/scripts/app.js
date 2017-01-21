@@ -2,7 +2,7 @@
 //organizes behavior of an app based on state(the fundamental unit of behavior via UI-Router) and gives each state a LOOK(templateurl) and behavior(CONTROLLERS
 
 (function(){
-  function config($stateProvider,$locationProvide) {
+  function config($stateProvider,$locationProvider) {
     
     //PROVIDES RULES ABOUT HOW TO DISPLAY LOCATION INFO?
     $locationProvider
@@ -24,6 +24,7 @@
       .state('album', {
           url:'/album', //what does this lien do?
           templateUrl: '/templates/album.html'
+          controller: 'AlbumCtrl as album'
     })
              
       .state('collection', {
@@ -36,6 +37,6 @@
   angular
     .module('blocJams', ['ui.router'])
     .config(config);//configures BEHAVIOR and LOOK of the app
-
+  
 })();
 
