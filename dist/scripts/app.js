@@ -23,7 +23,8 @@
     
       .state('album', {
           url:'/album', //what does this lien do?
-          templateUrl: '/templates/album.html'
+          templateUrl: '/templates/album.html',
+          controller: 'AlbumCtrl as album'//SIMPLY TELLS VIEW OF STATE WHICH CONTROLLER TO USE, DOES NOT GIVE IT ACCESS
     })
              
       .state('collection', {
