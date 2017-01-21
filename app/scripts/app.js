@@ -2,13 +2,13 @@
 //organizes behavior of an app based on state(the fundamental unit of behavior via UI-Router) and gives each state a LOOK(templateurl) and behavior(CONTROLLERS
 
 (function(){
-  function config($stateProvider,$locationProvide) {
+  function config($stateProvider,$locationProvider) {
     
     //PROVIDES RULES ABOUT HOW TO DISPLAY LOCATION INFO?
     $locationProvider
       .html5Mode({
         enabled:true,
-        requiredBase: false
+        requireBase: false
     });
      
     //PROVIDES INFORMATION REGARDING EACH STATE OF THE APP
@@ -23,7 +23,8 @@
     
       .state('album', {
           url:'/album', //what does this lien do?
-          templateUrl: '/templates/album.html'
+          templateUrl: '/templates/album.html',
+          controller: 'AlbumCtrl as album'//SIMPLY TELLS VIEW OF STATE WHICH CONTROLLER TO USE, DOES NOT GIVE IT ACCESS
     })
              
       .state('collection', {
