@@ -1,5 +1,6 @@
 
-///WHY USE A CLOSURE?
+//organizes behavior of an app based on state(the fundamental unit of behavior via UI-Router) and gives each state a LOOK(templateurl) and behavior(CONTROLLERS
+
 (function(){
   function config($stateProvider,$locationProvide) {
     
@@ -16,7 +17,8 @@
     $stateProvider //METHOD-CHAINING
       .state('landing', {
           url:'/',
-          templateUrl: '/templates/landing.html'
+          templateUrl: '/templates/landing.html',
+          controller:'LandingCtrl as landing' //designate a controller for a specific state
       })
     
       .state('album', {
@@ -26,13 +28,14 @@
              
       .state('collection', {
             url:'/', ///waht exaclty is this?
-            templateUrl: '/templates/collection.html'
+            templateUrl: '/templates/collection.html',
+            controller:'CollectionCtrl as collection'
     }); 
   }
   
   angular
-    .module('blocJams', ['ui.router']);
-    .config(config);//CONFIGURES, SETS HOW THE APP IS RUN(RULES); IS THAT CORRECT????
+    .module('blocJams', ['ui.router'])
+    .config(config);//configures BEHAVIOR and LOOK of the app
 
 })();
 
