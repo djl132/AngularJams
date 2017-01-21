@@ -8,7 +8,7 @@
     $locationProvider
       .html5Mode({
         enabled:true,
-        requiredBase: false
+        requireBase: false
     });
      
     //PROVIDES INFORMATION REGARDING EACH STATE OF THE APP
@@ -24,7 +24,6 @@
       .state('album', {
           url:'/album', //what does this lien do?
           templateUrl: '/templates/album.html'
-          controller: 'AlbumCtrl as album'
     })
              
       .state('collection', {
