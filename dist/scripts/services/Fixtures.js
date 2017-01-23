@@ -1,5 +1,8 @@
 
 
+//controllers simply should have assignments,
+//and should not do any logic heavylifting.
+//Thus, we create a service to store functions that manipulate and return values. 
  (function() {
      function Fixtures() {
         
@@ -52,7 +55,7 @@
  
      angular
          .module('blocJams')
-         .factory('Fixtures', Fixtures);//eject functionality
+         .factory('Fixtures', Fixtures);//eject functionality through an object
  })();
 
 
