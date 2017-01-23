@@ -42,6 +42,7 @@
         else if(song === currentSong){
           if(currentBuzzObject.isPaused())
             currentBuzzObject.play();
+            song.playing = true;
         }
        };
        
@@ -58,14 +59,3 @@
          .factory('SongPlayer', SongPlayer);
  })();
 
-(function(){
-  
-  function SongPlayer(){
-    var SongPlayer = {};
-    return SongPlayer;
-  }
-
-    angular
-          .module('blocJams')
-          .factory('SongPlayer', SongPlayer);
-})();
