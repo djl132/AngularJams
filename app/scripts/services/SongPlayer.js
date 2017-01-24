@@ -1,11 +1,11 @@
  (function() {
    
-    /**
-     * @function play
-     * @desc //return factory service that exposes Song functions(play/pause) through an object
-     * @param {Object} song
-     */  
-    function SongPlayer() {
+    function SongPlayer(Fixtures) {
+       /**
+       * @desc service object giving albumCtrl songplaying methods
+       * @type {Object}
+       */
+      var currentAlbum = Fixtures.getAlbum();
       
       /**
        * @desc service object giving albumCtrl songplaying methods
@@ -19,6 +19,15 @@
        */
       var currentBuzzObject = null;
 
+    /**
+      *@function getSongIndex
+      *@desc allows controller to know the index of the current song
+      *@type number
+      */
+      var getSongIndex = function(song){
+        return currentAlbum.songs.indexOf(song);
+      }
+      
       /**
        * @function playSong
        * @desc plays currentBuzzObject and informs UI song is playing
@@ -86,6 +95,16 @@
          song.playing = false;//will show play button, since it is still hovered over
        };
        
+        SongPlayer.previous = function(){
+          var newSongIndex = --getSongIndex(currentAlbum);
+          if(newSongIndex< 0){
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
+          }
+          var song = currentAlbum.songs[currentSongIndex];
+          setSong(song);//backend code
+          playSong(song);//frontend code
+        }
           return SongPlayer;
      }
  
@@ -93,6 +112,6 @@
    //add service to blocJams app/module
      angular
          .module('blocJams')
-         .factory('SongPlayer', SongPlayer);
+         .factory('SongPlayer','Fixtures', SongPlayer);
  })();
 
