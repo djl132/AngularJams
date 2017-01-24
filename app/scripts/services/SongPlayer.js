@@ -96,12 +96,12 @@
        };
        
         SongPlayer.previous = function(){
-          var newSongIndex = --getSongIndex(currentAlbum);
+          var newSongIndex = --getSongIndex(SongPlayer.currentSong);
           if(newSongIndex< 0){
             currentBuzzObject.stop();
             SongPlayer.currentSong.playing = null;
           }
-          var song = currentAlbum.songs[currentSongIndex];
+          var song = currentAlbum.songs[newSongIndex];
           setSong(song);//backend code
           playSong(song);//frontend code
         }
