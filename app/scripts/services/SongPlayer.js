@@ -1,6 +1,5 @@
  (function() {
    
-   
     /**
      * @function play
      * @desc //return factory service that exposes Song functions(play/pause) through an object
@@ -13,12 +12,6 @@
        * @type {Object}
        */
       var SongPlayer = {};
-      
-      /**
-       * @desc stores reference to currentSong and used for condition checking
-       * @type {Object}
-       */
-      var currentSong = null;//access currentSong object
       
       /**
        * @desc Buzz object audio file
@@ -36,6 +29,7 @@
         song.playing = true;
       }
        
+      
       /**
        * @function setSong
        * @desc Stops currently playing song and loads new audio file as currentBuzzObject
@@ -46,15 +40,21 @@
         //if there is a currentlyplaying
         if(currentBuzzObject){
           currentBuzzObject.stop(); //WHY NOT JUST PAUSE IT?
-          currentSong.playing = null; //UI boolean value
+          SongPlayer.currentSong.playing = null; //UI boolean value
         }
         
         currentBuzzObject = new buzz.sound(song.audioUrl,
               { formats: ['mp3'], preload: true}
               );
         currentBuzzObject.play();
-        currentSong = song; //inform play function
+        SongPlayer.currentSong = song; //inform play function
        };
+      
+       /**
+       * @desc stores public reference to currentSong and used for condition checking
+       * @type {Object}
+       */
+      SongPlayer.currentSong = null;//access currentSong object
       
        /**
        * @function play
@@ -62,13 +62,14 @@
        * @param {Object} song
        */      
       SongPlayer.play = function(song){
+        song = song || SongPlayer.currentSong; //ADAPTS THE SERVICE'S FUNCTIONALITY FOR TWO CONTROLLERS WITH TWO DIFFERENT INPUT METHODS DUE TO DIFFERENT SCOPES(PLAYERBARCONTROLLER/ALBUMCONTROLLER)
         //no currentSong playing (null)(initial state)
         //yes currentSong could be playing(nonnull)
-        if(song !== currentSong){
+        if(song !== SongPlayer.currentSong){
           setSong(song);
           song.playing = true;//inform ui to display pause button
         }
-        else if(song === currentSong){
+        else if(song === SongPlayer.currentSong){
           if(currentBuzzObject.isPaused())
             playSong(song);
         }
@@ -80,6 +81,7 @@
        * @param {Object}
        */
        SongPlayer.pause = function(song){
+         song = song || SongPlayer.currentSong;
          currentBuzzObject.pause();
          song.playing = false;//will show play button, since it is still hovered over
        };
