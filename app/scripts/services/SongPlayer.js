@@ -94,17 +94,24 @@
          currentBuzzObject.pause();
          song.playing = false;//will show play button, since it is still hovered over
        };
-       
+      
+      /**
+       * @function previous
+       * @desc changes to previous song
+       */
         SongPlayer.previous = function(){
-          var newSongIndex = --getSongIndex(SongPlayer.currentSong);
+          var newSongIndex = getSongIndex(SongPlayer.currentSong) - 1;
           if(newSongIndex< 0){
             currentBuzzObject.stop();
             SongPlayer.currentSong.playing = null;
           }
-          var song = currentAlbum.songs[newSongIndex];
-          setSong(song);//backend code
-          playSong(song);//frontend code
-        }
+          else{
+            var song = currentAlbum.songs[newSongIndex];
+            setSong(song);//backend code
+            playSong(song);//frontend code
+          }
+        };
+      
           return SongPlayer;
      }
  
