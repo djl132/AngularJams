@@ -11,7 +11,12 @@
      <link rel="stylesheet" type="text/css" href="/styles/landing.css">
      <link rel="stylesheet" type="text/css" href="/styles/collection.css">
      <link rel="stylesheet" type="text/css" href="/styles/album.css">
-     <link rel="stylesheet" type="text/css" href="/styles/player_bar.css"></head>
+     <link rel="stylesheet" type="text/css" href="/styles/player_bar.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
+</head>
+   
 <body>
   <nav class="navbar"> <!-- <nav class="navbar"> <!--navigation bar-->
       
@@ -27,15 +32,15 @@
   
        <ui-view></ui-view><!--//everything is going to be dynamically displayed here.-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
+  
     <script src="/scripts/app.js"></script> <!--//organizes behavior of an app based on state(the fundamental unit of behavior via UI-Router) and gives each state a LOOK(templateurl) and behavior(CONTROLLERS)-->
-    <script src="/scripts/controllers/LandingCtrl.js"></script>
-    <script src="/scripts/controllers/CollectionCtrl.js"></script>
-    <script src="/scripts/controllers/AlbumCtrl.js"></script>
-    <script src="/scripts/controllers/PlayerBarCtrl.js"></script>
-    <script src="/scripts/services/Fixtures.js"></script>
-    <script src="/scripts/services/SongPlayer.js"></script>  
+  
+    <script src="scripts/services/Fixtures.js"></script>
+    <script src="scripts/services/SongPlayer.js"></script>  
+    <script src="scripts/controllers/LandingCtrl.js"></script>
+    <script src="scripts/controllers/CollectionCtrl.js"></script>
+    <script src="scripts/controllers/AlbumCtrl.js"></script>
+    <script src="scripts/controllers/PlayerBarCtrl.js"></script>
+    
 </body>
 </html>
