@@ -12,12 +12,6 @@
        * @type {Object}
        */
       var SongPlayer = {};
-      
-      /**
-       * @desc Buzz object audio file
-       * @type {Object}
-       */
-      var currentBuzzObject = null;
 
     /**
       *@function getSongIndex
@@ -34,9 +28,21 @@
        * @param {Object} song
        */      
        var playSong = function(song){
-        currentBuzzObject.play();
+        SongPlayer.currentBuzzObject.play();
         song.playing = true;
       }
+        
+      /**
+       * @function playSong
+       * @desc plays currentBuzzObject and informs UI song is playing
+       * @param {Object} song
+       */      
+       var stopSong = function(song){
+        SongPlayer.currentBuzzObject.stop();
+        song.playing = null;
+      }
+       
+       
        
       
       /**
@@ -47,15 +53,14 @@
       var setSong = function(song){
         
         //if there is a currentlyplaying
-        if(currentBuzzObject){
-          currentBuzzObject.stop(); //WHY NOT JUST PAUSE IT?
-          SongPlayer.currentSong.playing = null; //UI boolean value
+        if(SongPlayer.currentBuzzObject){
+          stopSong(SongPlayer.currentSong);
         }
         
-        currentBuzzObject = new buzz.sound(song.audioUrl,
+        SongPlayer.currentBuzzObject = new buzz.sound(song.audioUrl,
               { formats: ['mp3'], preload: true}
               );
-        currentBuzzObject.play();
+        SongPlayer.currentBuzzObject.play();
         SongPlayer.currentSong = song; //inform play function
        };
       
@@ -64,6 +69,12 @@
        * @type {Object}
        */
       SongPlayer.currentSong = null;//access currentSong object
+      
+      /**
+       * @desc Buzz object audio file
+       * @type {Object}
+       */
+      SongPlayer.currentBuzzObject = null;
       
        /**
        * @function play
@@ -79,7 +90,7 @@
           song.playing = true;//inform ui to display pause button
         }
         else if(song === SongPlayer.currentSong){
-          if(currentBuzzObject.isPaused())
+          if(SongPlayer.currentBuzzObject.isPaused())
             playSong(song);
         }
        };
@@ -91,7 +102,7 @@
        */
        SongPlayer.pause = function(song){
          song = song || SongPlayer.currentSong;
-         currentBuzzObject.pause();
+         SongPlayer.currentBuzzObject.pause();
          song.playing = false;//will show play button, since it is still hovered over
        };
       
@@ -102,8 +113,7 @@
         SongPlayer.previous = function(){
           var newSongIndex = getSongIndex(SongPlayer.currentSong) - 1;
           if(newSongIndex< 0){
-            currentBuzzObject.stop();
-            SongPlayer.currentSong.playing = null;
+            stopSong(SongPlayer.currentSong);
           }
           else{
             var song = currentAlbum.songs[newSongIndex];
@@ -111,7 +121,22 @@
             playSong(song);//frontend code
           }
         };
-      
+       
+      /**
+       * @function next
+       * @desc changes to previous song
+       */
+        SongPlayer.next = function(){
+          var newSongIndex = getSongIndex(SongPlayer.currentSong) + 1;
+          if(newSongIndex > currentAlbum.songs.length - 1){
+            stopSong(SongPlayer.currentSong);
+          }
+          else{
+            var song = currentAlbum.songs[newSongIndex];
+            setSong(song);//backend code
+            playSong(song);//frontend code
+          }
+        };  
           return SongPlayer;
      }
  
