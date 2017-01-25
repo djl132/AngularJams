@@ -1,5 +1,5 @@
 (function(){
-  function PlayerBarCtrl(){
+  function PlayerBarCtrl(Fixtures, SongPlayer){
       this.albumData = Fixtures.getAlbum();
       this.songPlayer = SongPlayer;
   }
@@ -8,3 +8,4 @@
     .module('blocJams')
     .controller('PlayerBarCtrl',['Fixtures','SongPlayer', PlayerBarCtrl]);
 });
+
