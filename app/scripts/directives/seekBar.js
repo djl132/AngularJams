@@ -11,14 +11,19 @@
         };
 
          return {
-
+           
               //restrict: 'E' instructs Angular to treat this directive as an element. 
               //replace: true instructs Angular to completely replace the <seek-bar> element with the directive's HTML template
               //The templateUrl option specifies the path to the HTML template that the directive will use. 
                templateUrl: '/templates/directives/seek_bar.html',
                replace: true,
                restrict: 'E',
-               scope: { },//gives each seek bar instance a separate MODEL.
+           //scopes the directive to outside, specifically, PlayerBarController in order to access songPlayer's scop.value and max, later used in notifyOnChange
+               scope: {
+                  onChange: '&'
+               },
+           
+           //gives each seek bar instance a separate scope
                link: function(scope, element, attributes) {
                    // directive logic to return
                  
@@ -27,7 +32,7 @@
                  scope.value = 0;
                  scope.max = 100;
                  
-                 //differentiates which seekbar
+                 //gives the current seekbar jQuery functionality
                  var seekBar = $(element); 
                  
                  
@@ -41,6 +46,12 @@
                    scope.max = newValue;
                  });
                  
+                  //notifies directive's View about changes in songPlayer's values which now has access to the 
+                  var notifyOnChange = function(newValue){
+                    if(typeof scope.onChange === 'function')
+                      scope.onChange({value:scope.value});//this is referring to the outide scope.value.
+                  }
+            
                  //returns ngStyle css format of percentage change 
                  var percentString = function(){
                    var value = scope.value;
@@ -61,6 +72,7 @@
                  scope.onClickSeekBar = function(event){
                     var percent = calculatePercent(seekBar, event);
                     scope.value = percent * scope.max; //data bound - will update view in real-time
+                    notifyOnChange(scope.value);
                  };
                  
                  //tracks thumb of respective
@@ -68,8 +80,9 @@
             $document.bind('mousemove.thumb', function(event) {//BEGINS A NEW TURN
                    var percent = calculatePercent(seekBar, event);
                    scope.$apply(function() {//in order to bind data in the seekBar template(tell View seekBar template about chnages)
-
-                       scope.value = percent * scope.max;
+                      
+                      scope.value = percent * scope.max;//updating an angular value using non-Angular callbacks(liek scope requires apply$)
+                      notifyOnChange(scope.value);//sets the current value
                     });
                   });
 
@@ -78,6 +91,7 @@
                      $document.unbind('mouseup.thumb');
                   });
             };
+          
          }
      };
   }

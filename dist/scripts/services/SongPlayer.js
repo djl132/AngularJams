@@ -88,8 +88,8 @@
        * @param {Number} time
        */    
       SongPlayer.setCurrentTime = function(time){
-        if(currentBuzzObject){
-          currentBuzzObject.setTime(time);
+        if(SongPlayer.currentBuzzObject){
+          SongPlayer.currentBuzzObject.setTime(time);
         }
       };
       
