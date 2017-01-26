@@ -49,7 +49,7 @@
                   //notifies directive's View about changes in songPlayer's values which now has access to the 
                   var notifyOnChange = function(newValue){
                     if(typeof scope.onChange === 'function')
-                      scope.onChange({value:scope.value});//this is referring to the outide scope.value.
+                      scope.onChange({value:scope.value});//this is referring to the oview's onChange function
                   }
             
                  //returns ngStyle css format of percentage change 

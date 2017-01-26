@@ -1,11 +1,17 @@
  (function() {
    
-    function SongPlayer(Fixtures) {
+    function SongPlayer($rootScope, Fixtures) {
        /**
        * @desc service object giving albumCtrl songplaying methods
        * @type {Object}
        */
       var currentAlbum = Fixtures.getAlbum();
+      
+       /**
+       * @desc Buzz object audio file
+       * @type {Object}
+       */
+      var currentBuzzObject = null;
       
       /**
        * @desc service object giving albumCtrl songplaying methods
@@ -28,7 +34,7 @@
        * @param {Object} song
        */      
        var playSong = function(song){
-        SongPlayer.currentBuzzObject.play();
+        currentBuzzObject.play();
         song.playing = true;
       }
         
@@ -38,7 +44,7 @@
        * @param {Object} song
        */      
        var stopSong = function(song){
-        SongPlayer.currentBuzzObject.stop();
+        currentBuzzObject.stop();
         song.playing = null;
       }
        
@@ -53,14 +59,28 @@
       var setSong = function(song){
         
         //if there is a currentlyplaying
-        if(SongPlayer.currentBuzzObject){
+        if(currentBuzzObject){
           stopSong(SongPlayer.currentSong);
         }
         
-        SongPlayer.currentBuzzObject = new buzz.sound(song.audioUrl,
+        currentBuzzObject = new buzz.sound(song.audioUrl,
               { formats: ['mp3'], preload: true}
               );
-        SongPlayer.currentBuzzObject.play();
+        
+        //tell everyone(rootScope) component that depends on SongPlayer.js about changes in current time, specifically seekbar directive.
+        currentBuzzObject.bind('timeupdate', function(){
+          //nonAngualr turn creation, must manually update value of currentTime
+          $rootScope.$apply(function(){
+                SongPlayer.currentTime = currentBuzzObject.getTime();
+            });
+          
+          });
+        currentBuzzObject.bind('timeupdate', function() {
+         $rootScope.$apply(function() {
+             SongPlayer.currentTime = currentBuzzObject.getTime();
+         });
+     });
+        currentBuzzObject.play();
         SongPlayer.currentSong = song; //inform play function
        };
       
@@ -69,12 +89,6 @@
        * @type {Object}
        */
       SongPlayer.currentSong = null;//access currentSong object
-      
-      /**
-       * @desc Buzz object audio file
-       * @type {Object}
-       */
-      SongPlayer.currentBuzzObject = null;
       
        /**
        * @desc current time of current song
@@ -88,8 +102,8 @@
        * @param {Number} time
        */    
       SongPlayer.setCurrentTime = function(time){
-        if(SongPlayer.currentBuzzObject){
-          SongPlayer.currentBuzzObject.setTime(time);
+        if(currentBuzzObject){
+          currentBuzzObject.setTime(time);
         }
       };
       
@@ -107,7 +121,7 @@
           song.playing = true;//inform ui to display pause button
         }
         else if(song === SongPlayer.currentSong){
-          if(SongPlayer.currentBuzzObject.isPaused())
+          if(currentBuzzObject.isPaused())
             playSong(song);
         }
        };
@@ -119,7 +133,7 @@
        */
        SongPlayer.pause = function(song){
          song = song || SongPlayer.currentSong;
-         SongPlayer.currentBuzzObject.pause();
+         currentBuzzObject.pause();
          song.playing = false;//will show play button, since it is still hovered over
        };
       
@@ -161,6 +175,6 @@
    //add service to blocJams app/module
      angular
          .module('blocJams')
-         .factory('SongPlayer',['Fixtures', SongPlayer]);
+         .factory('SongPlayer',['Fixtures','$rootScope', SongPlayer]);
  })();
 
