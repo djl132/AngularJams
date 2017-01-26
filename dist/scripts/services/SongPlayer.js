@@ -175,6 +175,6 @@
    //add service to blocJams app/module
      angular
          .module('blocJams')
-         .factory('SongPlayer',['Fixtures','$rootScope', SongPlayer]);
+         .factory('SongPlayer',['$rootScope','Fixtures', SongPlayer]);
  })();
 
