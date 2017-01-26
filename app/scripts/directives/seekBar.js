@@ -7,7 +7,7 @@
             var percent = offsetX/seekBarWidth;
             percent = Math.max(0,percent);
             percent = Math.min(1,percent);
-            return percent
+            return percent;
         };
 
          return {
@@ -22,43 +22,53 @@
                link: function(scope, element, attributes) {
                    // directive logic to return
                  
+                 //will store and change the real-time css percentage- value of the thumb and fill of a certain seekbar
+                 //all functions changing the style
                  scope.value = 0;
                  scope.max = 100;
                  
                  var seekBar = $(element); //differentiates which seekbar
                  
+                 //returns ngStyle css format of percentage change 
                  var percentString = function(){
                    var value = scope.value;
                    var max = scope.max;
                    var percent = value / max * 100;
                    return percent + "%";        };
                  
+                 //both use data-bound scope.value stuff to update css of seekbar components
                  scope.fillStyle = 
                    function(){ 
                    return {width: percentString()}; };//returns object for ng-style, which takes in an object. 
+                 scope.thumbStyle = 
+                   function(){
+                   return {left: percentString()};};
+                
                  
                  //click handler - event info.
                  scope.onClickSeekBar = function(event){
                     var percent = calculatePercent(seekBar, event);
-                    scope.value = percent * scope.max; 
+                    scope.value = percent * scope.max; //data bound - will update view in real-time
                  };
                  
                  //tracks thumb of respective
-                  scope.trackThumb = function() {                       $document.bind('mousemove.thumb', function(event) {
-                           var percent = calculatePercent(seekBar, event);
-                           scope.$apply(function() {
-                               scope.value = percent * scope.max;
+          scope.trackThumb = function() {                       
+            $document.bind('mousemove.thumb', function(event) {//BEGINS A NEW TURN
+                   var percent = calculatePercent(seekBar, event);
+                   scope.$apply(function() {//in order to bind data in the seekBar template(tell View seekBar template about chnages)
+
+                       scope.value = percent * scope.max;
                     });
                   });
- 
-                $document.bind('mouseup.thumb', function() {
-                   $document.unbind('mousemove.thumb');
-                   $document.unbind('mouseup.thumb');
-                            });
-                    };
-               }
-           };
-        }
+
+                  $document.bind('mouseup.thumb', function() {
+                     $document.unbind('mousemove.thumb');
+                     $document.unbind('mouseup.thumb');
+                  });
+            };
+         }
+     };
+  }
  
      angular
          .module('blocJams')
