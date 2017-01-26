@@ -38,6 +38,7 @@
                  
 //                 We use the directive's scope to determine the location of the seek bar thumb, and correspondingly, the playback position of the song.???????what?
                  //View value attribute --> Model changes in value(currentTime)
+                 //UPDATE directive's ngStyle handlers about chnages in currentTime and length of song(value and max specifically.)
                  attributes.$observe('value', function (newValue){
                    scope.value = newValue;
                  });
@@ -48,6 +49,8 @@
                  
                   //notifies directive's View about changes in songPlayer's values which now has access to the 
                   var notifyOnChange = function(newValue){
+                    //differnetiate if it's song's seekbar
+                    //volume seekbar does not have an onChange value
                     if(typeof scope.onChange === 'function')
                       scope.onChange({value:scope.value});//this is referring to the oview's onChange function
                   }
@@ -76,21 +79,21 @@
                  };
                  
                  //tracks thumb of respective
-          scope.trackThumb = function() {                       
-            $document.bind('mousemove.thumb', function(event) {//BEGINS A NEW TURN
-                   var percent = calculatePercent(seekBar, event);
-                   scope.$apply(function() {//in order to bind data in the seekBar template(tell View seekBar template about chnages)
-                      
-                      scope.value = percent * scope.max;//updating an angular value using non-Angular callbacks(liek scope requires apply$)
-                      notifyOnChange(scope.value);//sets the current value
-                    });
-                  });
+                scope.trackThumb = function() {                       
+                  $document.bind('mousemove.thumb', function(event) {//BEGINS A NEW TURN
+                         var percent = calculatePercent(seekBar, event);
+                         scope.$apply(function() {//in order to bind data in the seekBar template(tell View seekBar template about chnages)
 
-                  $document.bind('mouseup.thumb', function() {
-                     $document.unbind('mousemove.thumb');
-                     $document.unbind('mouseup.thumb');
-                  });
-            };
+                            scope.value = percent * scope.max;//updating an angular value using non-Angular callbacks(liek scope requires apply$)
+                            notifyOnChange(scope.value);//sets the current value
+                          });
+                        });
+
+                        $document.bind('mouseup.thumb', function() {
+                           $document.unbind('mousemove.thumb');
+                           $document.unbind('mouseup.thumb');
+                        });
+                  };
           
          }
      };
