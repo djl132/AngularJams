@@ -27,7 +27,19 @@
                  scope.value = 0;
                  scope.max = 100;
                  
-                 var seekBar = $(element); //differentiates which seekbar
+                 //differentiates which seekbar
+                 var seekBar = $(element); 
+                 
+                 
+//                 We use the directive's scope to determine the location of the seek bar thumb, and correspondingly, the playback position of the song.???????what?
+                 //View value attribute --> Model changes in value(currentTime)
+                 attributes.$observe('value', function (newValue){
+                   scope.value = newValue;
+                 });
+                //View value attribute--> Model changes in max(duration)
+                  attributes.$observe('max', function (newValue){
+                   scope.max = newValue;
+                 });
                  
                  //returns ngStyle css format of percentage change 
                  var percentString = function(){
