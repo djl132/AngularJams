@@ -95,7 +95,19 @@
        * @type {Object}
        */
       SongPlayer.currentTime = null;
+      
+       /**
+       * @desc current time of current song
+       * @type {Object}
+       */
+      SongPlayer.currentVolume = null;
     
+      //BOTH FUNCTIONS SET DATA UPDON CHANGE IN VOLUME/TIMEOFSONG
+      SongPlayer.setVolume = function(volume){
+        if(currentBuzzObject)
+          currentBuzzObject.setVolume(volume);
+      }
+      
       /**
        * @function setCurrentTime
        * @desc set current time(in seconds) of currentSong
