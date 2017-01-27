@@ -22,13 +22,13 @@
       })
     
       .state('album', {
-          url:'/album', //what does this lien do?
+          url:'/album', 
           templateUrl: '/templates/album.html',
           controller: 'AlbumCtrl as album'//SIMPLY TELLS VIEW OF STATE WHICH CONTROLLER TO USE, DOES NOT GIVE IT ACCESS
     })
              
       .state('collection', {
-            url:'/', ///waht exaclty is this?
+            url:'/collection', ///waht exaclty is this?
             templateUrl: '/templates/collection.html',
             controller:'CollectionCtrl as collection'
     }); 

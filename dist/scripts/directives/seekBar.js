@@ -49,10 +49,8 @@
                  
                   //notifies directive's View about changes in songPlayer's values which now has access to the 
                   var notifyOnChange = function(newValue){
-                    //differnetiate if it's song's seekbar
-                    //volume seekbar does not have an onChange value
                     if(typeof scope.onChange === 'function')
-                      scope.onChange({value:scope.value});//this is referring to the oview's onChange function
+                      scope.onChange({value: newValue});//THE REFERENCE TO PARENTSCOPE SEEKBAR), IS THERE.
                   }
             
                  //returns ngStyle css format of percentage change 
@@ -69,7 +67,6 @@
                  scope.thumbStyle = 
                    function(){
                    return {left: percentString()};};
-                
                  
                  //click handler - event info.
                  scope.onClickSeekBar = function(event){
