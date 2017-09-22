@@ -1,4 +1,4 @@
-###Note: needs polishing.
+### Note: needs polishing.
 # Story of the Project
 
 This was the first official project that I worked on during my time as a student at [Bloc.io](https://www.bloc.io/). The purpose of the project was to learn HTML/CSS, JS, JQuery, and some Bootstrap( CHECK! as well as break into AngularJS). I had a lot of fun and learned a lot from it. Afterall, it was the first official website I built. I hope you have as much fun playing with it as I had building it. 
