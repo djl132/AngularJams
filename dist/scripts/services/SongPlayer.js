@@ -75,11 +75,7 @@
             });
           
           });
-        currentBuzzObject.bind('timeupdate', function() {
-         $rootScope.$apply(function() {
-             SongPlayer.currentTime = currentBuzzObject.getTime();
-         });
-     });
+       
         currentBuzzObject.play();
         SongPlayer.currentSong = song; //inform play function
        };

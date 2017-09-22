@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-// 
+//
 //    grunt.initConfig({
 //        watch: {
 //            files: ['Gruntfile.js']
@@ -10,13 +10,13 @@ module.exports = function(grunt) {
 //              './dest/':['assets/js/*.js']
 //            }
 //          }
-//        
+//
 //        }
 //
 //    });
 
     grunt.loadNpmTasks('g runt-contrib-watch');
-  
+
     grunt.registerTask( 'default', [ 'clean', 'copy', 'hapi', 'watch'] );
 
     grunt.registerTask( 'build', [ 'clean', 'copy' ] );
