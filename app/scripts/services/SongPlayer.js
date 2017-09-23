@@ -67,6 +67,8 @@
               { formats: ['mp3'], preload: true}
               );
 
+        currentBuzzObject.setVolume(SongPlayer.currentVolume);
+
         //tell everyone(rootScope) component that depends on SongPlayer.js about changes in current time, specifically seekbar directive.
         currentBuzzObject.bind('timeupdate', function(){
           //nonAngualr turn creation, must manually update value of currentTime
@@ -78,7 +80,7 @@
 
         currentBuzzObject.play();
         SongPlayer.currentSong = song; //inform play function
-       };
+      };
 
        /**
        * @desc stores public reference to currentSong and used for condition checking
@@ -96,7 +98,7 @@
        * @desc current time of current song
        * @type {Object}
        */
-      SongPlayer.currentVolume = null;
+      SongPlayer.currentVolume = 50;
 
       //BOTH FUNCTIONS SET DATA UPDON CHANGE IN VOLUME/TIMEOFSONG
       SongPlayer.setVolume = function(volume){
@@ -151,8 +153,11 @@
        */
         SongPlayer.previous = function(){
           var newSongIndex = getSongIndex(SongPlayer.currentSong) - 1;
-          if(newSongIndex< 0){
+          if(newSongIndex < 0){
             stopSong(SongPlayer.currentSong);
+            var lastSong = currentAlbum.songs[currentAlbum.songs.length - 1];
+            setSong(lastSong);
+            playSong(lastSong);
           }
           else{
             var song = currentAlbum.songs[newSongIndex];
@@ -169,6 +174,9 @@
           var newSongIndex = getSongIndex(SongPlayer.currentSong) + 1;
           if(newSongIndex > currentAlbum.songs.length - 1){
             stopSong(SongPlayer.currentSong);
+            var firstSong = currentAlbum.songs[0];
+            setSong(firstSong);
+            playSong(firstSong);
           }
           else{
             var song = currentAlbum.songs[newSongIndex];
