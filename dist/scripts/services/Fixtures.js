@@ -2,13 +2,13 @@
 
 //controllers simply should have assignments,
 //and should not do any logic heavylifting.
-//Thus, we create a service to store functions that manipulate and return values. 
+//Thus, we create a service to store functions that manipulate and return values.
  (function() {
      function Fixtures() {
-        
-       
+
+
        var Fixtures = {};
-      
+
        var albumPicasso = {
          title: 'The Colors',
          artist: 'Pablo Picasso',
@@ -23,7 +23,7 @@
              { title: 'Magenta', duration: '374.22', audioUrl: '/assets/music/magenta' }
          ]
      };
- 
+
      var albumMarconi = {
          title: 'The Telephone',
          artist: 'Guglielmo Marconi',
@@ -38,24 +38,22 @@
              { title: 'Wrong phone number', duration: '2:15' }
          ]
      };
-       
+
        Fixtures.getAlbum = function(){
          return albumPicasso;
        }
-       
+
        Fixtures.getCollection = function(numberOfAlbums){
          var albums= [];
           for (var i= 0; i<numberOfAlbums; i++)
             albums.push(this.getAlbum());
          return albums;
        }
-       
+
          return Fixtures;
      }
- 
+
      angular
          .module('blocJams')
          .factory('Fixtures', Fixtures);//eject functionality through an object
  })();
-
-

@@ -1,5 +1,5 @@
 (function() {
-  
+
     //filter constructor returns a function that takes in input
      function timecode() {
          return function(seconds) {
@@ -10,15 +10,15 @@
              var wholeSeconds = Math.floor(seconds);
              var minutes = Math.floor(wholeSeconds / 60);
              var remainingSeconds = wholeSeconds % 60;
- 
+
              var output = minutes + ':';
- 
+
              if (remainingSeconds < 10) {
-                 output += '0';   
+                 output += '0';
              }
- 
+
              output += remainingSeconds;
- 
+
              return output;
          };
      }
@@ -27,4 +27,3 @@
          .module('blocJams')
          .filter('timecode', timecode);
  })();
-
