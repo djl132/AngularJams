@@ -20,6 +20,4 @@ Features:
 
 ```grunt```
 
-open index.html. 
-
-Go to the website: https://bloc-jam.netlify.com/
+open index.html
