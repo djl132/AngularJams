@@ -157,8 +157,11 @@
        */
         SongPlayer.previous = function(){
           var newSongIndex = getSongIndex(SongPlayer.currentSong) - 1;
-          if(newSongIndex< 0){
+          if(newSongIndex < 0){
             stopSong(SongPlayer.currentSong);
+            var lastSong = currentAlbum.songs[currentAlbum.songs.length - 1];
+            setSong(lastSong);
+            playSong(lastSong);
           }
           else{
             var song = currentAlbum.songs[newSongIndex];
@@ -175,6 +178,9 @@
           var newSongIndex = getSongIndex(SongPlayer.currentSong) + 1;
           if(newSongIndex > currentAlbum.songs.length - 1){
             stopSong(SongPlayer.currentSong);
+            var firstSong = currentAlbum.songs[0];
+            setSong(firstSong);
+            playSong(firstSong);
           }
           else{
             var song = currentAlbum.songs[newSongIndex];
