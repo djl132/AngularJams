@@ -16,4 +16,10 @@ Features:
 
 ## Configuration
 
+```npm install```
+
+```grunt```
+
+open index.html. 
+
 Go to the website: https://bloc-jam.netlify.com/
