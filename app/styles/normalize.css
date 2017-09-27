@@ -104,7 +104,9 @@ pre {
 
 a {
   background-color: transparent; /* 1 */
-  -webkit-text-decoration-skip: objects; /* 2 */
+  -webkit-text-decoration-skip: objects;
+  color: white;
+  text-decoration: none; /* 2 */
 }
 
 /**
